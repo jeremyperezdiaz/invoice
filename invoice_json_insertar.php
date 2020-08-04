@@ -8,9 +8,9 @@ $idInvoice = $fila[0];
 
 $filas = json_decode($_POST['valores'], true);
 
-$stmt = $conexion->prepare("INSERT INTO test_invoice3(
+$stmt = $conexion->prepare("INSERT INTO detalle(
         idInvoice,
-        item,
+        idItem,
         descripcion,
         valor
     ) VALUES (
@@ -20,12 +20,20 @@ $stmt = $conexion->prepare("INSERT INTO test_invoice3(
         ?
     )");
 
-$stmt->bind_param('ssi', $item, $descripcion, $valor);
+$stmt->bind_param('isi', $item, $descripcion, $valor);
 
 $inserciones = 0;
 foreach ($filas as $fila) {
-    $item      = $fila['item'];
-    $descripcion   = $fila['descripcion'];
+    $itemDescripcion = $fila['item'];
+    
+    //recuperar el ID del item segun descripcion para insertar el ID en la bdd
+    $recuperaIdItem = "SELECT idItem FROM item where descripcion = '$itemDescripcion'";
+    $resultadoItem = mysqli_query($conexion, $recuperaIdItem);
+    $filaItem = mysqli_fetch_row($resultadoItem);
+    $idItem = $filaItem[0];
+
+    $item = $idItem;
+    $descripcion = $fila['descripcion'];
     $valor = $fila['valor'];
     $result = $stmt->execute();
     if ($result) {
@@ -33,4 +41,18 @@ foreach ($filas as $fila) {
     }
 }
 
+//actualizar invoice
+
+// realiza el calculo de los items, los suma y guarda en variable totalItems
+$calculaTotal = "SELECT sum(valor) from detalle where idInvoice = $idInvoice";
+$resultadoTotal = mysqli_query($conexion, $calculaTotal);
+$filaTotal = mysqli_fetch_row($resultadoTotal);
+$totaItems = $filaTotal[0];
+
+// Actualiza el invoice con al suma del total
+$updateTotalInvoice = "UPDATE invoice SET total = $totaItems WHERE invoice.idInvoice = $idInvoice";
+$actualizaTotal = mysqli_query($conexion,$updateTotalInvoice);
+
 echo "Se insertaron $inserciones registros";
+
+?>
