@@ -188,14 +188,10 @@
                 emisor: emi,
                 cliente: cli,
                 fecha: fec
-            },
-            success: function(data) {
-                agrega_items();
-                alert("INVOICE CREADO con éxito")
-                return false;
             }
         });
-
+        alert("INVOICE CREADO con éxito");
+        agrega_items();
     }
 </script>
 
@@ -223,11 +219,8 @@
             url: "invoice_json_insertar.php",
             data: {
                 valores: JSON.stringify(filas)
-            },
-            success: function(data) {
-                alert("Datos de ITEMS se han insertados con éxito")
             }
         });
-        return false;
+        alert("Datos de ITEMS se han insertados con éxito")
     };
 </script>

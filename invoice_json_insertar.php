@@ -8,7 +8,7 @@ $idInvoice = $fila[0];
 
 $filas = json_decode($_POST['valores'], true);
 
-$stmt = $conexion->prepare("INSERT INTO test_invoice2(
+$stmt = $conexion->prepare("INSERT INTO test_invoice3(
         idInvoice,
         item,
         descripcion,
@@ -20,7 +20,7 @@ $stmt = $conexion->prepare("INSERT INTO test_invoice2(
         ?
     )");
 
-$stmt->bind_param('sss', $item, $descripcion, $valor);
+$stmt->bind_param('ssi', $item, $descripcion, $valor);
 
 $inserciones = 0;
 foreach ($filas as $fila) {
