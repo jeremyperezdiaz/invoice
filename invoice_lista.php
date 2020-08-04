@@ -13,19 +13,20 @@
                 <th>Emisor</th>
                 <th>Cliente</th>
                 <th>Contacto</th>
+                <th>Valor</th>
                 <th>Total</th>
                 <th>Estado de Pago</th>
             </tr>
         </thead>
         <?php
         $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto_1 as contacto_1,
-        i.total as total, est.descripcion as estadoPago, item.descripcion AS itemDescripcion, ihi.descripcion as itemDetalle
+        d.valor as valor, est.descripcion as estadoPago, i.total as total, item.descripcion AS itemDescripcion, d.descripcion as itemDetalle
         FROM invoice i
         INNER JOIN cliente c ON i.idCliente = c.idCliente
         INNER JOIN emisor e ON i.idEmisor = e.idEmisor
         INNER JOIN estado est ON i.idEstado = est.idEstado
-        INNER JOIN detalle ihi ON ihi.idInvoice = i.idInvoice
-        INNER JOIN item ON item.idItem = ihi.idItem
+        INNER JOIN detalle d ON d.idInvoice = i.idInvoice
+        INNER JOIN item ON item.idItem = d.idItem
         ORDER BY idInvoice DESC LIMIT 5";
         $resultado = mysqli_query($conexion, $sql);
 
@@ -39,6 +40,7 @@
                 <td><?php echo $lista['nombreEmisor'] ?></td>
                 <td><?php echo $lista['nombreCliente'] ?></td>
                 <td><?php echo $lista['contacto_1'] ?></td>
+                <td><?php echo $lista['valor'] ?></td>
                 <td><?php echo $lista['total'] ?></td>
                 <td><?php echo $lista['estadoPago'] ?></td>
             </tr>

@@ -2,7 +2,7 @@
 <?php include 'cn.php'; ?>
 
 <div class="container section">
-    <h3 class="blue-text darken-2">Listado de Clientes</h3>
+    <h3 class="blue-text darken-2">Listado de Emisores</h3>
     <table class="highlight centered" class="responsive-table">
         <thead>
             <tr>
