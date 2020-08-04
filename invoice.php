@@ -217,7 +217,7 @@
             filas.push(fila);
 
         });
-
+        // ahora ejecuta el php con los datos para insertar los items
         $.ajax({
             type: "POST",
             url: "invoice_json_insertar.php",
