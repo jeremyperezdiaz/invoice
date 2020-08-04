@@ -2,7 +2,8 @@
 
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
-        <h1 class="header center blue-text darken-2">SIOZS</h1>
+        <h1 class="header center blue-text darken-2">INVOICE GENERATOR</h1>
+
         <div class="row center">
             <h5 class="header col s12 light">Bienvenido al sistema de generación de invoices desarrollado por OZEROS</h5>
         </div>

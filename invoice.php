@@ -2,10 +2,10 @@
 <?php include 'cn.php'; ?>
 
 <div class="section container">
-    <h4 class="header left blue-text text-darken-3">Emitir Nuevo INVOICE</h4>
+    <h4 class="header left blue-text text-darken-2">Emitir Nuevo INVOICE</h4>
     <div class="row">
 
-        <form action="#" method="POST" class="col s12">
+        <form action="invoice.php" method="POST" class="col s12">
             <div class="row card-panel">
                 <div class="input field col s4">
                     <label>Seleccionar EMISOR del INVOICE</label>
@@ -48,7 +48,7 @@
 
                 <!-- Tabla de Detalles de los Servicios-->
 
-                <h4 class="header left blue-text text-darken-3">Detalle de servicios</h4>
+                <h4 class="header left blue-text text-darken-2">Detalle de servicios</h4>
 
                 <!-- Modal Trigger -->
                 <div class="col s12 center">
@@ -75,7 +75,7 @@
             </div>
 
             <!-- Boton de agregar el INVOICE -->
-            <button id="agregarInvoice" class="btn-large blue darken-3 waves-effect waves-light center" onclick="genera_invoice(emisor.value, cliente.value, fecha.value)">Agregar Invoice
+            <button type="submit" value="Submit" id="agregarInvoice" class="btn-large blue darken-3 waves-effect waves-light center" onclick="genera_invoice(emisor.value, cliente.value, fecha.value)">Agregar Invoice
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -87,7 +87,7 @@
             <h4 class="blue-text darken-2">Ingrese Item de Servicio</h4>
             <div class="col s2">
                 <label>Seleccionar ITEM</label>
-                <select name="item" id="item">
+                <select name="item" id="item" required>
                     <option value="0" disabled selected>Lista de Items</option>
                     <?php
                     $sql = "SELECT idItem, descripcion FROM item";
@@ -103,14 +103,14 @@
             </div>
             <div class="col s8">
                 <label for="descripcionItem">Detalle del Item de Servicio</label>
-                <input id="descripcionItem" name="descripcionItem" type="text">
+                <input id="descripcionItem" name="descripcionItem" type="text" required>
             </div>
             <div class="col s2">
                 <label for="valorItem">Valor en USD $</label>
-                <input id="valorItem" name="valorItem" type="number">
+                <input id="valorItem" name="valorItem" type="number" required>
             </div>
             <div class="modal-footer">
-                <a onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" class="modal-close waves-effect waves-light btn-large">
+                <a onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" class="modal-close waves-effect waves-light btn-large blue darken-3">
                     <i class="material-icons right">send</i>Agregar Item</a>
             </div>
 

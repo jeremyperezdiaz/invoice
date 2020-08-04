@@ -20,7 +20,7 @@
 }
 
 a {
-  color: #0087C3;
+  color: #3366cc;
   text-decoration: none;
 }
 
@@ -63,9 +63,9 @@ header {
 
 #client {
   padding-left: 6px;
-  border-left: 6px solid #0087C3;
+  border-left: 6px solid #3366cc;
   float: left;
-  padding-right: 100px;
+  padding-right: 6%;
 }
 
 #client .to {
@@ -84,7 +84,7 @@ h2.name {
 }
 
 #invoice h1 {
-  color: #0087C3;
+  color: #3366cc;
   font-size: 2.4em;
   line-height: 1em;
   font-weight: normal;
@@ -104,6 +104,10 @@ table {
   margin-bottom: 20px;
 }
 
+table thead{
+  border-bottom: 5px solid #FFFFFF;
+}
+
 table th,
 table td {
   padding: 20px;
@@ -115,6 +119,7 @@ table td {
 table th {
   white-space: nowrap;
   font-weight: bolder;
+  background: #EEEEEE;
 }
 
 table td {
@@ -140,9 +145,8 @@ table .desc {
 }
 
 table .item {
-  background: #DDDDDD;
+  background: #e3e3e3;
 }
-
 
 table .total {
   background: #3366cc;
@@ -182,6 +186,11 @@ table tfoot tr td:first-child {
   border: none;
 }
 
+table th.tablehead{
+  background: #EEEEEE;
+  color: #3366cc;
+  font-size: 16px;
+}
 #thanks{
   font-size: 2em;
   margin-bottom: 50px;
@@ -199,7 +208,7 @@ table tfoot tr td:first-child {
 
 #banks{
   padding-left: 6px;
-  border-left: 6px solid #0087C3;  
+  border-left: 6px solid #3366cc;  
   bottom: 10%;
   position: absolute;
 }
@@ -210,7 +219,7 @@ table tfoot tr td:first-child {
 
 #notices{
   padding-left: 6px;
-  border-left: 6px solid #0087C3;  
+  border-left: 6px solid #3366cc;  
 }
 
 #notices .notice {
