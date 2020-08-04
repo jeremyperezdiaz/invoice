@@ -191,8 +191,8 @@
             },
             success: function(data) {
                 agrega_items();
-                console.log(data);
                 alert("INVOICE CREADO con éxito")
+                return false;
             }
         });
 
@@ -225,10 +225,9 @@
                 valores: JSON.stringify(filas)
             },
             success: function(data) {
-                console.log(data);
                 alert("Datos de ITEMS se han insertados con éxito")
             }
         });
-
+        return false;
     };
 </script>
