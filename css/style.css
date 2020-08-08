@@ -7,3 +7,5 @@ body {
   main {
     flex: 1 0 auto;
   }
+
+.modal { width: 50% !important ; height: 50% !important ; } 

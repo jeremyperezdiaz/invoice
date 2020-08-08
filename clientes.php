@@ -39,12 +39,12 @@
 
                     <div class="input field col s6">
                         <label for="contacto1">Contacto Principal:</label>
-                        <input type="text" placeholder="Contacto de la empresa" id="contacto1" name="contacto1" class="validate" required>
+                        <input type="text" placeholder="Contacto de la empresa" id="contacto" name="contacto" class="validate" required>
                     </div>
 
                     <div class="input field col s6">
-                        <label for="contacto2">Contacto Secundario:</label>
-                        <input type="text" placeholder="Contacto secundario de la empresa" id="contacto2" name="contacto2">
+                        <label for="emailContacto">E-Mail Contacto:</label>
+                        <input type="email" placeholder="Correo corporativo contacto de la empresa" id="emailContacto" name="emailContacto">
                     </div>
 
                 </div>

@@ -9,7 +9,6 @@
                 <th>ID Emisor</th>
                 <th>Nombre</th>
                 <th>Dirección</th>
-                <th>Número</th>
                 <th>Comuna</th>
                 <th>Cuidad</th>
                 <th>País</th>
@@ -18,7 +17,7 @@
             </tr>
         </thead>
         <?php
-        $sql = "SELECT idEmisor, nombre, direccion, number, comuna, ciudad,
+        $sql = "SELECT idEmisor, nombre, direccion, comuna, ciudad,
                      pais, telefono, url FROM emisor";
         $resultado = mysqli_query($conexion, $sql);
 
@@ -28,7 +27,6 @@
                 <td><?php echo $lista['idEmisor'] ?></td>
                 <td><?php echo $lista['nombre'] ?></td>
                 <td><?php echo $lista['direccion'] ?></td>
-                <td><?php echo $lista['number'] ?></td>
                 <td><?php echo $lista['comuna'] ?></td>
                 <td><?php echo $lista['ciudad'] ?></td>
                 <td><?php echo $lista['pais'] ?></td>

@@ -13,6 +13,14 @@
   src: url(fonts/BebasNeue-Regular.otf);
 }
 
+@page {
+	size: 210mm 297mm;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 2%;
+}
+
 .clearfix:after {
   content: "";
   display: table;
@@ -31,34 +39,31 @@ body {
   margin: 0 auto; 
   color: #555555;
   background: #FFFFFF; 
-  font-family: Arial, sans-serif; 
   font-size: 13px; 
-  font-family: Lato;
+  font-family: Helvetica;
 }
 
 header {
   padding: 10px 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #AAAAAA;
 }
 
 #logo {
   float: left;
   margin-top: 8px;
-}
-
-#logo img {
-  height: 50px;
+  width:50%;
 }
 
 #company {
   float: right;
   text-align: right;
+  width:50%;
 }
 
-
 #details {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
+  width:100%;
 }
 
 #client {
@@ -66,14 +71,29 @@ header {
   border-left: 6px solid #3366cc;
   float: left;
   padding-right: 6%;
+  width:35%;
+
 }
 
 #client .to {
   color: #777777;
 }
 
+#contact {
+  padding-left: 6px;
+  border-left: 6px solid #3366cc;
+  float: left;
+  padding-right: 6%;
+  width:24%;
+}
+
+#contact .to {
+  color: #777777;
+}
+
+
 h2.name {
-  font-size: 1.4em;
+  font-size: 1.2em;
   font-weight: normal;
   margin: 0;
 }
@@ -81,15 +101,16 @@ h2.name {
 #invoice {
   float: right;
   text-align: right;
+  width: 25%;
 }
 
 #invoice h1 {
   color: #3366cc;
-  font-size: 2.4em;
+  font-size: 20px;
   line-height: 1em;
   font-weight: normal;
   margin: 0  0 10px 0;
-  font-family: Bebas;
+  font-family: Helvetica;
 }
 
 #invoice .date {
@@ -105,7 +126,7 @@ table {
 }
 
 table thead{
-  border-bottom: 5px solid #FFFFFF;
+  border-bottom: 10px solid #FFFFFF;
 }
 
 table th,
@@ -137,7 +158,7 @@ table .no {
   color: #FFFFFF;
   font-size: 1.6em;
   background: #3366cc;
-  font-family: Bebas;
+  font-family: Helvetica;
 }
 
 table .desc {
@@ -154,7 +175,8 @@ table .total {
 }
 
 table td.item,
-table td.total {
+table td.total,
+table td.desc {
   font-size: 1.2em;
 }
 
@@ -198,6 +220,7 @@ table th.tablehead{
 
 #grandTotal{
   text-align: right;
+  width: 50%;
 }
 
 #totalInWords{
@@ -211,10 +234,11 @@ table th.tablehead{
   border-left: 6px solid #3366cc;  
   bottom: 10%;
   position: absolute;
+  font-size: 18px;
 }
 
 #banks .bank {
-  font-size: 1.2em;
+  font-size: 14px;
 }
 
 #notices{

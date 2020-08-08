@@ -4,7 +4,7 @@
     <h4 class="header left blue-text text-darken-3">Formulario de Ingreso de Emisores</h4>
     <div class="row">
 
-        <form action="emisores_ingresa.php" method="POST" class="col s12">
+        <form action="emisor_ingresa.php" method="POST" class="col s12">
             <div class="row card-panel">
                 <div class="input field col s12">
                     <div class="input field col s12">
@@ -41,17 +41,6 @@
                         <label for="url">URL:</label>
                         <input type="text" placeholder="www.mywebsite.com" id="url" name="url" class="validate" required>
                     </div>
-
-                    <div class="input field col s6">
-                        <label for="logo">Logo Principal:</label>
-                        <input type="text" id="logo" name="logo">
-                    </div>
-
-                    <div class="input field col s6">
-                        <label for="logo_footer">Logo Footer:</label>
-                        <input type="text" id="logo_footer" name="logo_footer">
-                    </div>
-
                 </div>
             </div>
             

@@ -5,7 +5,7 @@
     <h4 class="header left blue-text text-darken-2">Emitir Nuevo INVOICE</h4>
     <div class="row">
 
-        <form action="invoice.php" method="POST" class="col s12">
+        <form action="invoice_guardar.php" method="POST" class="col s12">
             <div class="row card-panel">
                 <div class="input field col s4">
                     <label>Seleccionar EMISOR del INVOICE</label>
@@ -224,3 +224,4 @@
         alert("Datos de ITEMS se han insertados con éxito")
     };
 </script>
+

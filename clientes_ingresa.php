@@ -7,11 +7,11 @@ $ciudad = $_POST["ciudad"];
 $cod_postal = $_POST["cod_postal"];
 $pais = $_POST["pais"];
 $telefono = $_POST["telefono"];
-$contacto1 = $_POST["contacto1"];
-$contacto2 = $_POST["contacto2"];
+$contacto1 = $_POST["contacto"];
+$contacto2 = $_POST["emailContacto"];
 
 //crear el insert
-$insertar = "INSERT INTO cliente(`idCliente`, `nombre`, `direccion`, `ciudad`, `cod_postal`, `pais`, `telefono`, `contacto_1`, `contacto_2`)
+$insertar = "INSERT INTO cliente(`idCliente`, `nombre`, `direccion`, `ciudad`, `cod_postal`, `pais`, `telefono`, `contacto`, `email_contacto`)
                         VALUES (default, '$nombre', '$direccion', '$ciudad', '$cod_postal', '$pais', '$telefono', '$contacto1', '$contacto2')";
 
 //verificar usuario
