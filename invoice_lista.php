@@ -43,26 +43,27 @@ endif;
 ?>
 
 <div class="section container">
-    <h5 class="header left blue-text text-darken-2">Buscar INVOICE Filtrando por fecha</h5>
+    <h5 class="blue-text text-darken-2">Buscar INVOICE Filtrando por fecha</h5>
+
     <div class="row">
-        <form method="POST" class="col s12">
-            <div class="input field col s2">
+        <form method="POST" class="col s6 left">
+            <div class="input field col s3">
                 <label for="fecha">Desde:</label>
                 <input type="text" class="datepickerInicio" id="fechaInicio" name="fechaInicio">
             </div>
-            <div class="input field col s2">
+            <div class="input field col s3">
                 <label for="fecha">Hasta:</label>
                 <input type="text" class="datepickerFin" id="fechaFin" name="fechaFin">
             </div>
-            <div class="input field col s3">
+            <div class="input field col s6">
                 </br>
                 <button class="btn blue darken-3 waves-effect waves-light" type="submit" name="action">Filtrar por fecha
                     <i class="material-icons right">search</i>
                 </button>
             </div>
         </form>
-        <form method="POST" class="col s12">
-            <div class="input field col s4">
+        <form method="POST" class="col s6">
+            <div class="input field col s7">
                 <label>Seleccionar Cliente:</label>
                 <select name="idCliente" id="idCliente">
                     <option value="" selected>Listado de Clientes</option>
@@ -77,8 +78,8 @@ endif;
                     };
                     ?>
                 </select>
-            </div>          
-            <div class="input field col s3">
+            </div>
+            <div class="input field col s5">
                 </br>
                 <button class="btn blue darken-3 waves-effect waves-light" type="submit" name="action">Filtrar por Cliente
                     <i class="material-icons right">search</i>
