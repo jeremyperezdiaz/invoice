@@ -3,7 +3,7 @@
 
 <?php
 // Si el post viene vacio carga fecha de hoy por defecto 
-if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])):
+if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])) :
     $fechaInicio = $_POST["fechaInicio"];
     $fechaFin = $_POST["fechaFin"];
     $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
@@ -16,7 +16,19 @@ if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])):
         INNER JOIN item ON item.idItem = d.idItem
         WHERE fecha BETWEEN '$fechaInicio' and '$fechaFin'
         ORDER BY idInvoice DESC LIMIT 10";
-else:
+elseif (!empty($_POST) and !empty($_POST["idCliente"])) :
+    $idCliente = $_POST["idCliente"];
+    $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
+        d.valor as valor, est.descripcion as estadoPago, i.total as total, item.descripcion AS itemDescripcion, d.descripcion as itemDetalle
+        FROM invoice i
+        INNER JOIN cliente c ON i.idCliente = c.idCliente
+        INNER JOIN emisor e ON i.idEmisor = e.idEmisor
+        INNER JOIN estado est ON i.idEstado = est.idEstado
+        INNER JOIN detalle d ON d.idInvoice = i.idInvoice
+        INNER JOIN item ON item.idItem = d.idItem
+        WHERE c.idCliente = $idCliente
+        ORDER BY idInvoice DESC";
+else :
     $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
         d.valor as valor, est.descripcion as estadoPago, i.total as total, item.descripcion AS itemDescripcion, d.descripcion as itemDetalle
         FROM invoice i
@@ -34,27 +46,53 @@ endif;
     <h5 class="header left blue-text text-darken-2">Buscar INVOICE Filtrando por fecha</h5>
     <div class="row">
         <form method="POST" class="col s12">
-            <div class="input field col s3">
+            <div class="input field col s2">
                 <label for="fecha">Desde:</label>
                 <input type="text" class="datepickerInicio" id="fechaInicio" name="fechaInicio">
             </div>
-            <div class="input field col s3">
+            <div class="input field col s2">
                 <label for="fecha">Hasta:</label>
                 <input type="text" class="datepickerFin" id="fechaFin" name="fechaFin">
             </div>
-            <div class="input field s1">
+            <div class="input field col s3">
                 </br>
-                <button class="btn blue darken-3 waves-effect waves-light" type="submit" name="action">cargar por fecha
-                    <i class="material-icons right">file_download</i>
+                <button class="btn blue darken-3 waves-effect waves-light" type="submit" name="action">Filtrar por fecha
+                    <i class="material-icons right">search</i>
                 </button>
             </div>
         </form>
+        <form method="POST" class="col s12">
+            <div class="input field col s4">
+                <label>Seleccionar Cliente:</label>
+                <select name="idCliente" id="idCliente">
+                    <option value="" selected>Listado de Clientes</option>
+                    <?php
+                    $sqlCli = "SELECT idCliente,nombre FROM cliente ORDER BY idCliente";
+                    $resultado = mysqli_query($conexion, $sqlCli);
 
+                    while ($lista = mysqli_fetch_array($resultado)) {
+                    ?>
+                        <option value="<?php echo $lista['idCliente'] ?>"><?php echo $lista["idCliente"] . ' - ' . $lista["nombre"] ?></option>
+                    <?php
+                    };
+                    ?>
+                </select>
+            </div>          
+            <div class="input field col s3">
+                </br>
+                <button class="btn blue darken-3 waves-effect waves-light" type="submit" name="action">Filtrar por Cliente
+                    <i class="material-icons right">search</i>
+                </button>
+            </div>
+        </form>
     </div>
-                
+
     <h5 class="blue-text">Listado de Invoices
-        <?php if(!empty($_POST)):
-            echo '('.$fechaInicio.' y '.$fechaFin.')';
+        <?php
+        if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])) :
+            echo '(' . $fechaInicio . ' y ' . $fechaFin . ')';
+        elseif (!empty($_POST["idCliente"])) :
+            echo ' - Cliente ID: ' . $idCliente;
         endif;
         ?>
     </h5>
