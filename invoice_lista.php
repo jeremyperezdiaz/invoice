@@ -15,7 +15,7 @@ if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])) :
         INNER JOIN detalle d ON d.idInvoice = i.idInvoice
         INNER JOIN item ON item.idItem = d.idItem
         WHERE fecha BETWEEN '$fechaInicio' and '$fechaFin'
-        ORDER BY idInvoice DESC LIMIT 10";
+        ORDER BY idInvoice";
 elseif (!empty($_POST) and !empty($_POST["idCliente"])) :
     $idCliente = $_POST["idCliente"];
     $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
@@ -37,7 +37,7 @@ else :
         INNER JOIN estado est ON i.idEstado = est.idEstado
         INNER JOIN detalle d ON d.idInvoice = i.idInvoice
         INNER JOIN item ON item.idItem = d.idItem
-        ORDER BY idInvoice DESC LIMIT 10";
+        ORDER BY idInvoice DESC LIMIT 5";
 endif;
 
 ?>
@@ -145,6 +145,10 @@ endif;
         ?>
 
     </table>
+    <div class="col-md-12 center text-center">
+        <span class="left" id="total_reg"></span>
+        <ul class="pagination pager" id="myPager"></ul>
+    </div>
     <div>
         </br>
     </div>
@@ -191,5 +195,20 @@ endif;
 <script>
     $(document).ready(function() {
         $('.tooltipped').tooltip();
+    });
+</script>
+    
+<script type="text/javascript" src="js/pagination.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#tablaInvoices').pageMe({
+            pagerSelector: '#myPager',
+            activeColor: 'blue darken-3',
+            prevText: 'Anterior',
+            nextText: 'Siguiente',
+            showPrevNext: true,
+            hidePageNumbers: false,
+            perPage: 10
+        });
     });
 </script>
