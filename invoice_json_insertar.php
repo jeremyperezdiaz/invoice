@@ -53,6 +53,6 @@ $totaItems = $filaTotal[0];
 $updateTotalInvoice = "UPDATE invoice SET total = $totaItems WHERE invoice.idInvoice = $idInvoice";
 $actualizaTotal = mysqli_query($conexion,$updateTotalInvoice);
 
-echo "Se insertaron $inserciones registros";
+echo '<script>alert("Se insertaron $inserciones registros";)</script>'
 
 ?>

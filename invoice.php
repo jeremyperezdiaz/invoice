@@ -5,12 +5,12 @@
     <h4 class="header left blue-text text-darken-2">Emitir Nuevo INVOICE</h4>
     <div class="row">
 
-        <form action="invoice_guardar.php" method="POST" class="col s12">
+        <form method="POST" class="col s12">
             <div class="row card-panel">
                 <div class="input field col s4">
                     <label>Seleccionar EMISOR del INVOICE</label>
-                    <select name="emisor" id="emisor">
-                        <option value="" disabled selected>Lista de Emisores</option>
+                    <select name="emisor" id="emisor" required>
+                        <option value="">Lista de Emisores</option>
                         <?php
                         $sql = "SELECT idEmisor,nombre FROM emisor";
                         $resultado = mysqli_query($conexion, $sql);
@@ -26,8 +26,8 @@
 
                 <div class="input field col s4">
                     <label>Seleccionar Cliente (Recibe INVOICE)</label>
-                    <select name="cliente" id="cliente">
-                        <option value="" disabled selected>Lista de clientes</option>
+                    <select name="cliente" id="cliente" required>
+                        <option value="">Lista de clientes</option>
                         <?php
                         $sql = "SELECT * FROM cliente";
                         $resultado = mysqli_query($conexion, $sql);
@@ -43,7 +43,7 @@
 
                 <div class="input field col s4">
                     <label for="fecha">Fecha:</label>
-                    <input type="text" class="datepicker" id="fecha" name="fecha">
+                    <input type="text" class="datepicker" id="fecha" name="fecha" required>
                 </div>
 
                 <!-- Tabla de Detalles de los Servicios-->
@@ -85,35 +85,36 @@
     <div id="modal1" class="modal">
         <div class="modal-content container">
             <h4 class="blue-text darken-2">Ingrese Item de Servicio</h4>
-            <div class="col s2">
-                <label>Seleccionar ITEM</label>
-                <select name="item" id="item" required>
-                    <option value="0" disabled selected>Lista de Items</option>
-                    <?php
-                    $sql = "SELECT idItem, descripcion FROM item";
-                    $resultado = mysqli_query($conexion, $sql);
+            <form action="invoice.php">
+                <div class="col s2">
+                    <label>Seleccionar ITEM</label>
+                    <select name="item" id="item" required>
+                        <option value="">Lista de Items</option>
+                        <?php
+                        $sql = "SELECT idItem, descripcion FROM item";
+                        $resultado = mysqli_query($conexion, $sql);
 
-                    while ($lista = mysqli_fetch_array($resultado)) {
-                    ?>
-                        <option value="<?php echo $lista['descripcion'] ?>"><?php echo $lista['descripcion'] ?></option>
-                    <?php
-                    };
-                    ?>
-                </select>
-            </div>
-            <div class="col s8">
-                <label for="descripcionItem">Detalle del Item de Servicio</label>
-                <input id="descripcionItem" name="descripcionItem" type="text" required>
-            </div>
-            <div class="col s2">
-                <label for="valorItem">Valor en USD $</label>
-                <input id="valorItem" name="valorItem" type="number" required>
-            </div>
-            <div class="modal-footer">
-                <a onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" class="modal-close waves-effect waves-light btn-large blue darken-3">
-                    <i class="material-icons right">send</i>Agregar Item</a>
-            </div>
-
+                        while ($lista = mysqli_fetch_array($resultado)) {
+                        ?>
+                            <option value="<?php echo $lista['descripcion'] ?>"><?php echo $lista['descripcion'] ?></option>
+                        <?php
+                        };
+                        ?>
+                    </select>
+                </div>
+                <div class="col s8">
+                    <label for="descripcionItem">Detalle del Item de Servicio</label>
+                    <input id="descripcionItem" name="descripcionItem" type="text" required>
+                </div>
+                <div class="col s2">
+                    <label for="valorItem">Valor en USD $</label>
+                    <input id="valorItem" name="valorItem" type="number" required>
+                </div>
+                <div class="modal-footer">
+                    <a onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" class="modal-close waves-effect waves-light btn-large blue darken-3">
+                        <i class="material-icons right">send</i>Agregar Item</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -181,17 +182,30 @@
 
 <script>
     function genera_invoice(emi, cli, fec) {
-        $.ajax({
-            type: "POST",
-            url: "invoice_generador.php",
-            data: {
-                emisor: emi,
-                cliente: cli,
-                fecha: fec
+
+        if (emi && cli) {
+            $.ajax({
+                type: "POST",
+                url: "invoice_generador.php",
+                data: {
+                    emisor: emi,
+                    cliente: cli,
+                    fecha: fec
+                }
+            });
+            //agrega_items();
+            if(agrega_items()){
+                window.location.href = "invoice_guardar.php";
+                alert("¡Invoice Insertado con éxito!");
             }
-        });
-        alert("INVOICE CREADO con éxito");
-        agrega_items();
+            else
+            {
+                alert("Tienes la TABLA de Servicios vacía");
+            }
+
+        } else {
+            alert("Tienes datos de Emisor o Cliente vacios");
+        }
     }
 </script>
 
@@ -213,15 +227,19 @@
             filas.push(fila);
 
         });
-        // ahora ejecuta el php con los datos para insertar los items
-        $.ajax({
-            type: "POST",
-            url: "invoice_json_insertar.php",
-            data: {
-                valores: JSON.stringify(filas)
-            }
-        });
-        alert("Datos de ITEMS se han insertados con éxito")
+        if (Array.isArray(filas) && filas.length) {
+            // ahora ejecuta el php con los datos para insertar los items
+            $.ajax({
+                type: "POST",
+                url: "invoice_json_insertar.php",
+                data: {
+                    valores: JSON.stringify(filas)
+                }
+            });
+            return true
+        } else {
+            return false
+        }
+
     };
 </script>
-

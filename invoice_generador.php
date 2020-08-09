@@ -4,13 +4,11 @@
 
 //Invoice
 $fecha = $_POST["fecha"];
-//$fecha = '2020-01-01';
 $total = 0;
 $idEmisor = $_POST["emisor"];
-//$idEmisor = 1;
 $idEstado = 1; // 1 es pendiente de pago
 $idCliente = $_POST["cliente"];
-//$idCliente = 1;
+
 
 //crear el insert
 //primero el invoice
