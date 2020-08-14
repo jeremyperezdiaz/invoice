@@ -11,9 +11,8 @@ $idInvoice = $fila[0];
 <div class="container section">
     <form action="invoice_base_PDF.php" method="POST">
         <!-- Boton hace PDF -->
-        <button name="invoice" id="invoice" value="<?php echo $idInvoice ?>" class="btn-large red darken-2 waves-effect waves-light tooltipped"
-                target="_blank" data-position="right" data-tooltip="Crear PDF Invoice N° <?php echo $idInvoice ?>"
-                type="submit">Generar PDF<i class="material-icons right">picture_as_pdf</i>
+        <button name="invoice" id="invoice" value="<?php echo $idInvoice ?>" class="btn-large red darken-2 waves-effect waves-light"
+                target="_blank" type="submit">Generar PDF<i class="material-icons right">picture_as_pdf</i>
         </button>
     </form>
 </div>

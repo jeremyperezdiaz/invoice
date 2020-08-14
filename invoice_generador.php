@@ -9,7 +9,6 @@ $idEmisor = $_POST["emisor"];
 $idEstado = 1; // 1 es pendiente de pago
 $idCliente = $_POST["cliente"];
 
-
 //crear el insert
 //primero el invoice
 $insertarInvoice = "INSERT INTO invoice(`idInvoice`, `fecha`, `total`, `idEmisor`, `idEstado`, `idCliente`)

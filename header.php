@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" /> 
+    <link href="css/default.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/alertify.min.css" type="text/css" rel="stylesheet" media="screen,projection" /> 
     <link rel="icon" href="img/favicon.ico" type="image/gif" sizes="16x16">
 
 </head>

@@ -5,7 +5,7 @@
     <h4 class="header left blue-text text-darken-2">Emitir Nuevo INVOICE</h4>
     <div class="row">
 
-        <form method="POST" class="col s12">
+        <form class="col s12">
             <div class="row card-panel">
                 <div class="input field col s4">
                     <label>Seleccionar EMISOR del INVOICE</label>
@@ -75,7 +75,7 @@
             </div>
 
             <!-- Boton de agregar el INVOICE -->
-            <button type="submit" value="Submit" id="agregarInvoice" class="btn-large blue darken-3 waves-effect waves-light center" onclick="genera_invoice(emisor.value, cliente.value, fecha.value)">Agregar Invoice
+            <button id="agregarInvoice" class="btn-large blue darken-3 waves-effect waves-light" onclick="genera_invoice(emisor.value, cliente.value, fecha.value)">Agregar Invoice
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -124,6 +124,8 @@
 </div>
 
 <?php include 'footer.php'; ?>
+
+
 <script>
     var date = new Date();
     var year = date.getFullYear();
@@ -155,23 +157,38 @@
 </script>
 
 <script>
+    $('#agregarInvoice').click(function(e) {
+        // prevent click action
+        e.preventDefault();
+        // your code here
+        return false;
+    });
+</script>
+
+<script>
     function agregarFila(item, descripcion, valor) {
 
         if (item.trim() == '') {
-            M.toast({html: 'Porfavor ingrese Item de Servicio', classes: 'rounded orange'})
-            //alert('porfavor ingrese Item de Servicio.');
+            M.toast({
+                html: 'Porfavor ingrese Item de Servicio',
+                classes: 'rounded orange'
+            })
             $('#item').formSelect();
             return false;
         }
         if (descripcion.trim() == '') {
-            M.toast({html: 'Porfavor ingrese descripción', classes: 'rounded orange'})
-            //alert('porfavor ingrese descripción.');
+            M.toast({
+                html: 'Porfavor ingrese descripción',
+                classes: 'rounded orange'
+            })
             $('#descripcionItem').focus();
             return false;
         }
         if (valor.trim() == '') {
-            M.toast({html: 'Porfavor ingrese Valor', classes: 'rounded orange'})
-            //alert('porfavor ingrese Valor.');
+            M.toast({
+                html: 'Porfavor ingrese Valor',
+                classes: 'rounded orange'
+            })
             $('#valorItem').focus();
             return false;
         } else {
@@ -187,59 +204,37 @@
             cell2.innerHTML = descripcion;
             cell3.innerHTML = valor;
             cell4.innerHTML = '<input class="btn red" type="button" value="Borrar" onclick="eliminarFilaID(this)">';
-            M.toast({html: '¡Agregado exitosamente!', classes: 'rounded green'})
-            //alert('¡Agregado exitosamente!.');
+            M.toast({
+                html: '¡Agregado exitosamente!',
+                classes: 'rounded green'
+            })
         }
     }
 
     function eliminarFila() {
         document.getElementById("tablaItems").deleteRow(-1);
-            M.toast({html: '¡Eliminada exitosamente!', classes: 'rounded red'})
+        M.toast({
+            html: '¡Eliminada exitosamente!',
+            classes: 'rounded red'
+        })
     }
 
     function eliminarFilaID(r) {
         var i = r.parentNode.parentNode.rowIndex;
         document.getElementById("tablaItems").deleteRow(i - 1);
-        M.toast({html: '¡Eliminada exitosamente!', classes: 'rounded red'})
+        M.toast({
+            html: '¡Eliminada exitosamente!',
+            classes: 'rounded red'
+        })
     }
 </script>
 
 <!-- Script para transformar la tabla en json -->
 <!-- Primero genera el INVOICE -->
+<script src="js/alertify.min.js"></script>
 
 <script>
     function genera_invoice(emi, cli, fec) {
-
-        if (emi && cli) {
-            $.ajax({
-                type: "POST",
-                url: "invoice_generador.php",
-                data: {
-                    emisor: emi,
-                    cliente: cli,
-                    fecha: fec
-                }
-            });
-            //agrega_items();
-            if (agrega_items()) {
-                window.location.href = "invoice_guardar.php";
-                //M.toast({html: '¡Invoice Insertado con éxito!', classes: 'rounded green'})
-                alert("¡Invoice Insertado con éxito!");
-            } else {
-                M.toast({html: '¡Tienes la TABLA de Servicios vacía!', classes: 'rounded orange'})
-                //alert("Tienes la TABLA de Servicios vacía");
-            }
-
-        } else {
-            M.toast({html: 'Tienes datos de Emisor o Cliente vacios', classes: 'rounded orange'})
-            //alert("Tienes datos de Emisor o Cliente vacios");
-        }
-    }
-</script>
-
-<!-- Ahora el Detalle de los ITEM -->
-<script>
-    function agrega_items() {
         var filas = [];
 
         $('#tablaItems tr').each(function() {
@@ -253,21 +248,52 @@
                 valor
             };
             filas.push(fila);
-
         });
-        if (Array.isArray(filas) && filas.length) {
-            // ahora ejecuta el php con los datos para insertar los items
+
+        if (Array.isArray(filas) && filas.length && emi && cli) {
+            //si viene TODOS los datos, genera el invoice
+            $.ajax({
+                type: "POST",
+                url: "invoice_generador.php",
+                data: {
+                    emisor: emi,
+                    cliente: cli,
+                    fecha: fec
+                },
+                async: false
+            });
+
+            //Luego del invoice, ahora inserta los items
             $.ajax({
                 type: "POST",
                 url: "invoice_json_insertar.php",
                 data: {
                     valores: JSON.stringify(filas)
-                }
+                },
+                async: false
             });
-            return true
-        } else {
-            return false
-        }
 
-    };
+            //Al finalizar nos envia un mensaje de exito y nos envía a la pagina para guardar el invoice
+            alertify.confirm("¡Invoice Ingresado con EXITO!","¿Desea generar el PDF para guardardo?",
+            
+                function() {
+                    alertify.success('Si');
+                    window.location.href = "invoice_guardar.php";
+                },
+                function() {
+                    alertify.error('No');
+                    window.location.href = "invoice.php";
+                }).set('labels', {ok:'Weno!', cancel:'Nah!'},);
+
+            //window.location.href = "invoice_guardar.php";
+            //alert("¡Invoice Insertado con éxito!");
+        } else {
+            //Si no cumple, envía mensaje de error para verificar
+            M.toast({
+                html: '¡Verifica los datos! Emisor, Cliente o Servicios están vacíos',
+                classes: 'rounded orange'
+            })
+
+        }
+    }
 </script>
