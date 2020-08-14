@@ -8,4 +8,11 @@ body {
     flex: 1 0 auto;
   }
 
-.modal { width: 50% !important ; height: 50% !important ; } 
+.modal { width: 30% !important ; height: 45% !important ; } 
+
+#toast-container {
+  top: 9% !important;
+  right: 40% !important;
+  
+  
+}

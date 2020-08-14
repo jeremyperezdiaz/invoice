@@ -13,8 +13,8 @@
                 <th>Código Postal</th>
                 <th>País</th>
                 <th>Teléfono</th>
-                <th>Contacto 1</th>
-                <th>Contacto 2</th>
+                <th>Contacto</th>
+                <th>Email</th>
             </tr>
         </thead>
         <?php

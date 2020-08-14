@@ -27,7 +27,6 @@
         <li><a href="invoice.php" class="blue-text darken-2">Emitir</a></li>
         <li class="divider"></li>
         <li><a href="invoice_lista.php" class="blue-text darken-2">Listar</a></li>
-        <li><a href="#!" class="blue-text darken-2">Buscar</a></li>
     </ul>
 
     <!-- Dropdown Clientes -->
@@ -35,7 +34,6 @@
         <li><a href="clientes.php" class="blue-text darken-2">Agregar</a></li>
         <li class="divider"></li>
         <li><a href="clientes_lista.php" class="blue-text darken-2">Listar</a></li>
-        <li><a href="#!" class="blue-text darken-2">Buscar</a></li>
     </ul>
 
     <!-- Dropdown Emisor -->

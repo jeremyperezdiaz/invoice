@@ -9,11 +9,13 @@ $idInvoice = $fila[0];
 $filas = json_decode($_POST['valores'], true);
 
 $stmt = $conexion->prepare("INSERT INTO detalle(
+        idDetalle,
         idInvoice,
         idItem,
         descripcion,
         valor
     ) VALUES (
+        default,
         $idInvoice,
         ?,
         ?,

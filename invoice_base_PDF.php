@@ -106,7 +106,7 @@ $html = '
       <div>Bank Account:</div>
       <div class="bank">Beneficiary’s Name: '.$lista[0]["titularBanco"].'</div>
       <div class="bank">Beneficiary’s Address: '.$lista[0]["direccionTitularBanco"].", ".$lista[0]["ciudadEmi"].", ".$lista[0]["paisEmi"].'</div>
-      <div class="bank">Beneficiary’s Account Number: '.$lista[0]["tipoCuentaBanco"].'</div>
+      <div class="bank">Beneficiary’s Account Number: '.$lista[0]["tipoCuentaBanco"].': '.$lista[0]["numeroCuentaBanco"].'</div>
       <div class="bank">Receiving Bank’s Name: '.$lista[0]["nombreBanco"].'</div>
       <div class="bank">Receiving Bank’s Address: '.$lista[0]["direccionBanco"].'</div>
       <div class="bank">SWIFT Code: '.$lista[0]["swiftBanco"].'</div>

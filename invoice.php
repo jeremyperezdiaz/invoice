@@ -54,7 +54,7 @@
                 <div class="col s12 center">
                     <a class="waves-effect waves-light btn modal-trigger green" href="#modal1"><i class="material-icons right">library_add
                         </i>Agregar Item</a>
-                    <a onclick="eliminarFila()" class="modal-close waves-effect waves-light btn red">
+                    <a onclick="eliminarFila()" class="waves-effect waves-light btn red">
                         <i class="material-icons right">clear</i>Eliminar Item</a>
                 </div>
 
@@ -83,13 +83,13 @@
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
-        <div class="modal-content container">
+        <div class="modal-content ">
             <h4 class="blue-text darken-2">Ingrese Item de Servicio</h4>
-            <form action="invoice.php">
-                <div class="col s2">
+            <form>
+                <div class="input field col s2">
                     <label>Seleccionar ITEM</label>
-                    <select name="item" id="item" required>
-                        <option value="">Lista de Items</option>
+                    <select name="item" id="item">
+                        <option val="" disabled>Lista de Items</option>
                         <?php
                         $sql = "SELECT idItem, descripcion FROM item";
                         $resultado = mysqli_query($conexion, $sql);
@@ -102,17 +102,21 @@
                         ?>
                     </select>
                 </div>
-                <div class="col s8">
+                <div class="input field col s8">
                     <label for="descripcionItem">Detalle del Item de Servicio</label>
-                    <input id="descripcionItem" name="descripcionItem" type="text" required>
+                    <input value="" id="descripcionItem" name="descripcionItem" type="text" required>
                 </div>
-                <div class="col s2">
+                <div class="input field col s2" required>
                     <label for="valorItem">Valor en USD $</label>
-                    <input id="valorItem" name="valorItem" type="number" required>
+                    <input value="" id="valorItem" name="valorItem" type="number" required>
                 </div>
                 <div class="modal-footer">
-                    <a onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" class="modal-close waves-effect waves-light btn-large blue darken-3">
-                        <i class="material-icons right">send</i>Agregar Item</a>
+
+                    <button class="left waves-effect waves-light btn-large blue darken-3" onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" type="reset">Agregar Item <i class="material-icons right">send</i>Agregar Item</a>
+                    </button>
+
+                    <a class="modal-close waves-effect waves-light btn-large red darken-3">
+                        <i class="material-icons right">close</i>Cerrar</a>
                 </div>
             </form>
         </div>
@@ -152,28 +156,51 @@
 
 <script>
     function agregarFila(item, descripcion, valor) {
-        var table = document.getElementById("tablaItems");
-        var row = table.insertRow(-1);
 
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        // Add some text to the new cells:
-        cell1.innerHTML = item;
-        cell2.innerHTML = descripcion;
-        cell3.innerHTML = valor;
-        cell4.innerHTML = '<input class="btn red" type="button" value="Borrar" onclick="eliminarFilaID(this)">';
+        if (item.trim() == '') {
+            M.toast({html: 'Porfavor ingrese Item de Servicio', classes: 'rounded orange'})
+            //alert('porfavor ingrese Item de Servicio.');
+            $('#item').formSelect();
+            return false;
+        }
+        if (descripcion.trim() == '') {
+            M.toast({html: 'Porfavor ingrese descripción', classes: 'rounded orange'})
+            //alert('porfavor ingrese descripción.');
+            $('#descripcionItem').focus();
+            return false;
+        }
+        if (valor.trim() == '') {
+            M.toast({html: 'Porfavor ingrese Valor', classes: 'rounded orange'})
+            //alert('porfavor ingrese Valor.');
+            $('#valorItem').focus();
+            return false;
+        } else {
+            var table = document.getElementById("tablaItems");
+            var row = table.insertRow(-1);
 
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            // Add some text to the new cells:
+            cell1.innerHTML = item;
+            cell2.innerHTML = descripcion;
+            cell3.innerHTML = valor;
+            cell4.innerHTML = '<input class="btn red" type="button" value="Borrar" onclick="eliminarFilaID(this)">';
+            M.toast({html: '¡Agregado exitosamente!', classes: 'rounded green'})
+            //alert('¡Agregado exitosamente!.');
+        }
     }
 
     function eliminarFila() {
         document.getElementById("tablaItems").deleteRow(-1);
+            M.toast({html: '¡Eliminada exitosamente!', classes: 'rounded red'})
     }
 
     function eliminarFilaID(r) {
         var i = r.parentNode.parentNode.rowIndex;
         document.getElementById("tablaItems").deleteRow(i - 1);
+        M.toast({html: '¡Eliminada exitosamente!', classes: 'rounded red'})
     }
 </script>
 
@@ -194,17 +221,18 @@
                 }
             });
             //agrega_items();
-            if(agrega_items()){
+            if (agrega_items()) {
                 window.location.href = "invoice_guardar.php";
+                //M.toast({html: '¡Invoice Insertado con éxito!', classes: 'rounded green'})
                 alert("¡Invoice Insertado con éxito!");
-            }
-            else
-            {
-                alert("Tienes la TABLA de Servicios vacía");
+            } else {
+                M.toast({html: '¡Tienes la TABLA de Servicios vacía!', classes: 'rounded orange'})
+                //alert("Tienes la TABLA de Servicios vacía");
             }
 
         } else {
-            alert("Tienes datos de Emisor o Cliente vacios");
+            M.toast({html: 'Tienes datos de Emisor o Cliente vacios', classes: 'rounded orange'})
+            //alert("Tienes datos de Emisor o Cliente vacios");
         }
     }
 </script>

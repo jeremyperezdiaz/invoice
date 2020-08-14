@@ -15,7 +15,7 @@ if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])) :
         INNER JOIN detalle d ON d.idInvoice = i.idInvoice
         INNER JOIN item ON item.idItem = d.idItem
         WHERE fecha BETWEEN '$fechaInicio' and '$fechaFin'
-        ORDER BY idInvoice";
+        ORDER BY idInvoice DESC";
 elseif (!empty($_POST) and !empty($_POST["idCliente"])) :
     $idCliente = $_POST["idCliente"];
     $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
@@ -91,7 +91,7 @@ endif;
     <h5 class="blue-text">Listado de Invoices
         <?php
         if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])) :
-            echo '(' . $fechaInicio . ' y ' . $fechaFin . ')';
+            echo '(' . $fechaInicio . ' al ' . $fechaFin . ')';
         elseif (!empty($_POST["idCliente"])) :
             echo ' - Cliente ID: ' . $idCliente;
         endif;
