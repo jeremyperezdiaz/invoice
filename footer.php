@@ -29,7 +29,7 @@
 
     <div class="footer-copyright" >
         <div class="container">
-            Desarrollado por <a class="blue-text text-lighten-3" href="http://www.ozeros.com">Jeremy Pérez - OZEROS</a>
+            Desarrollado por <a class="blue-text text-lighten-3" href="http://www.ozeros.com">Jeremy Pérez - Gonzalo San Martín</a>
         </div>
     </div>
 </footer>
