@@ -266,7 +266,7 @@
             //Luego del invoice, ahora inserta los items
             $.ajax({
                 type: "POST",
-                url: "invoice_json_insertar.php",
+                url: "invoice_inserta_detalle.php",
                 data: {
                     valores: JSON.stringify(filas)
                 },
