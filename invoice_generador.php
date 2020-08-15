@@ -1,4 +1,5 @@
 <?php include 'cn.php';
+//Genera un nuevo invoice en la bdd para luego insertarle los items
 
 //Variables que reciben los datos del formulario
 

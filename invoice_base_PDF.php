@@ -1,7 +1,22 @@
+<head>
+  <link rel="icon" href="img/favicon.ico" type="image/gif" sizes="16x16">
+</head>
+
 <?php include 'cn.php'; ?>
 
 <?php
-$invoice = $_POST["invoice"];
+
+// Si viene un valor en el metodo post con el ID del invoice, genera ese
+if ($_POST["invoice"]){
+  $invoice = $_POST["invoice"];
+  $filtro = 'WHERE i.idInvoice ='.$invoice;
+}  
+//si no, genera el último invoice ingresado
+else
+{
+  $filtro = 'ORDER BY idInvoice DESC LIMIT 1';
+}
+  
 
 $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, e.direccion as direccionEmi, e.comuna as comunaEmi, 
         e.ciudad as ciudadEmi, e.pais AS paisEmi, e.telefono as telefonoEmi, e.url as urlEmi, e.email as emailEmi, c.nombre AS nombreCli, c.direccion AS direccionCli,
@@ -15,7 +30,8 @@ $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmi
         INNER JOIN detalle d ON d.idInvoice = i.idInvoice
         INNER JOIN item ON item.idItem = d.idItem
         INNER JOIN banco b ON e.idEmisor = b.idEmisor
-        WHERE i.idInvoice = $invoice";
+        $filtro" ;
+        
 $resultado = mysqli_query($conexion, $sql);
 
 while ($lista[] = $resultado->fetch_array());
@@ -138,4 +154,5 @@ $css = file_get_contents('css/style_invoice_base.css');
 $mpdf->WriteHTML($css,1);
 $mpdf->WriteHTML($html);
 $mpdf->Output($nombrepdf,'I');
+
 ?>

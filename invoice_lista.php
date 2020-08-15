@@ -2,42 +2,20 @@
 <?php include 'cn.php'; ?>
 
 <?php
+//inicializacion de variables para caso por defecto
+$filtroDefecto ='';
+$filtroWhere = '';
+
 // Si el post viene vacio carga fecha de hoy por defecto 
 if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])) :
     $fechaInicio = $_POST["fechaInicio"];
     $fechaFin = $_POST["fechaFin"];
-    $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
-        d.valor as valor, est.descripcion as estadoPago, i.total as total, item.descripcion AS itemDescripcion, d.descripcion as itemDetalle
-        FROM invoice i
-        INNER JOIN cliente c ON i.idCliente = c.idCliente
-        INNER JOIN emisor e ON i.idEmisor = e.idEmisor
-        INNER JOIN estado est ON i.idEstado = est.idEstado
-        INNER JOIN detalle d ON d.idInvoice = i.idInvoice
-        INNER JOIN item ON item.idItem = d.idItem
-        WHERE fecha BETWEEN '$fechaInicio' and '$fechaFin'
-        ORDER BY idInvoice DESC";
+    $filtroWhere = "WHERE fecha BETWEEN "."'$fechaInicio'"." and "."'$fechaFin'";
 elseif (!empty($_POST) and !empty($_POST["idCliente"])) :
     $idCliente = $_POST["idCliente"];
-    $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
-        d.valor as valor, est.descripcion as estadoPago, i.total as total, item.descripcion AS itemDescripcion, d.descripcion as itemDetalle
-        FROM invoice i
-        INNER JOIN cliente c ON i.idCliente = c.idCliente
-        INNER JOIN emisor e ON i.idEmisor = e.idEmisor
-        INNER JOIN estado est ON i.idEstado = est.idEstado
-        INNER JOIN detalle d ON d.idInvoice = i.idInvoice
-        INNER JOIN item ON item.idItem = d.idItem
-        WHERE c.idCliente = $idCliente
-        ORDER BY idInvoice DESC";
+    $filtroWhere = 'WHERE c.idCliente ='.$idCliente;
 else :
-    $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
-        d.valor as valor, est.descripcion as estadoPago, i.total as total, item.descripcion AS itemDescripcion, d.descripcion as itemDetalle
-        FROM invoice i
-        INNER JOIN cliente c ON i.idCliente = c.idCliente
-        INNER JOIN emisor e ON i.idEmisor = e.idEmisor
-        INNER JOIN estado est ON i.idEstado = est.idEstado
-        INNER JOIN detalle d ON d.idInvoice = i.idInvoice
-        INNER JOIN item ON item.idItem = d.idItem
-        ORDER BY idInvoice DESC LIMIT 5";
+    $filtroDefecto = 'LIMIT 10';
 endif;
 
 ?>
@@ -116,6 +94,17 @@ endif;
         <?php
 
         //Se ejecuta el SQL que se cargará a la tabla
+        $sql = "SELECT i.idInvoice as idInvoice, i.fecha AS fecha, e.nombre AS nombreEmisor, c.nombre AS nombreCliente, c.contacto as contacto,
+        d.valor as valor, est.descripcion as estadoPago, i.total as total, item.descripcion AS itemDescripcion, d.descripcion as itemDetalle
+        FROM invoice i
+        INNER JOIN cliente c ON i.idCliente = c.idCliente
+        INNER JOIN emisor e ON i.idEmisor = e.idEmisor
+        INNER JOIN estado est ON i.idEstado = est.idEstado
+        INNER JOIN detalle d ON d.idInvoice = i.idInvoice
+        INNER JOIN item ON item.idItem = d.idItem
+        $filtroWhere
+        ORDER BY idInvoice DESC $filtroDefecto";
+
         $resultado = mysqli_query($conexion, $sql);
 
         while ($lista = mysqli_fetch_array($resultado)) {

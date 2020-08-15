@@ -82,7 +82,7 @@
     </div>
 
     <!-- Modal Structure -->
-    <div id="modal1" class="modal">
+    <div id="modal1" class="modal" style="width:25%">
         <div class="modal-content ">
             <h4 class="blue-text darken-2">Ingrese Item de Servicio</h4>
             <form>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button class="left waves-effect waves-light btn-large blue darken-3" onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" type="reset">Agregar Item <i class="material-icons right">send</i>Agregar Item</a>
+                    <button class="left waves-effect waves-light btn-large blue darken-3" onclick="agregarFila(item.value, descripcionItem.value, valorItem.value)" type="reset">Agregar Item<i class="material-icons right">library_add</i></a>
                     </button>
 
                     <a class="modal-close waves-effect waves-light btn-large red darken-3">
@@ -277,16 +277,13 @@
             alertify.confirm("¡Invoice Ingresado con EXITO!","¿Desea generar el PDF para guardardo?",
             
                 function() {
-                    alertify.success('Si');
-                    window.location.href = "invoice_guardar.php";
+                    alertify.success('ok');
+                    window.location.href = "invoice_base_PDF.php";
                 },
                 function() {
-                    alertify.error('No');
+                    alertify.error('cancel');
                     window.location.href = "invoice.php";
                 }).set('labels', {ok:'Weno!', cancel:'Nah!'},);
-
-            //window.location.href = "invoice_guardar.php";
-            //alert("¡Invoice Insertado con éxito!");
         } else {
             //Si no cumple, envía mensaje de error para verificar
             M.toast({
