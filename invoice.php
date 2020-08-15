@@ -82,7 +82,7 @@
     </div>
 
     <!-- Modal Structure -->
-    <div id="modal1" class="modal" style="width:25%">
+    <div id="modal1" class="modal" style="width:25%; height:45%">
         <div class="modal-content ">
             <h4 class="blue-text darken-2">Ingrese Item de Servicio</h4>
             <form>
