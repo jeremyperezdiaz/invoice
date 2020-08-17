@@ -83,6 +83,7 @@ endif;
             </div>
         </form>
     </div>
+
     <h5 class="blue-text">Listado de Invoices
         <?php
         if (!empty($_POST["fechaInicio"]) and !empty($_POST["fechaFin"])) :
@@ -92,6 +93,7 @@ endif;
         endif;
         ?>
     </h5>
+
     <table class="highlight centered" class="responsive-table" id="tablaInvoices">
         <thead>
             <tr>
@@ -105,7 +107,7 @@ endif;
                 <th>Valor</th>
                 <th>Total</th>
                 <th>Estado de Pago</th>
-                <th>Descargar</th>
+                <th>Actualizar</th>
             </tr>
         </thead>
         <?php
@@ -138,10 +140,9 @@ endif;
                 <td><?php echo $lista['total'] ?></td>
                 <td><?php echo $lista['estadoPago'] ?></td>
                 <td>
-                    <form action="invoice_base_PDF.php" method="POST">
-                        <!-- Boton PDF -->
-                        <button name="invoice" id="invoice" value="<?php echo $lista['idInvoice'] ?>" class="btn-floating red darken-2 waves-effect waves-light
-                            tooltipped" data-position="right" data-tooltip="Crear PDF Invoice N° <?php echo $lista['idInvoice'] ?>" type="submit"><i class="material-icons right">picture_as_pdf</i>
+                    <!-- Boton Actualizar -->
+                    <form action="invoice_estado_actualiza.php" method="POST">
+                        <button name="idInvoice" id="idInvoice" value="<?php echo $lista['idInvoice'] ?>" class="btn-floating waves-effect waves-light btn orange tooltipped" data-tooltip="Modificar Estado de Invoice N° <?php echo $lista['idInvoice'] ?>"><i class="material-icons right">sync</i>
                         </button>
                     </form>
                 </td>

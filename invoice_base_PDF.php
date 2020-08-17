@@ -1,7 +1,3 @@
-<head>
-  <link rel="icon" href="img/favicon.ico" type="image/gif" sizes="16x16">
-</head>
-
 <?php include 'cn.php'; ?>
 
 <?php
@@ -49,6 +45,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $mpdf = new \Mpdf\Mpdf();
 $html = '
+<head>
+  <title>Invoice N°'.$invoice.'</title>
+</head>
 <body id="content">
   <header class="clearfix">
     <div id="logo">

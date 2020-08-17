@@ -15,6 +15,7 @@
                 <th>Teléfono</th>
                 <th>Contacto</th>
                 <th>Email</th>
+                <th>Modificar</th>
             </tr>
         </thead>
         <?php
@@ -33,6 +34,13 @@
                 <td><?php echo $lista['telefono'] ?></td>
                 <td><?php echo $lista['contacto'] ?></td>
                 <td><?php echo $lista['email_contacto'] ?></td>
+                <td>
+                    <!-- Boton Modificar -->
+                    <form action="cliente_actualiza.php" method="POST">
+                        <button name="idCliente" id="idCliente" value="<?php echo $lista['idCliente'] ?>" class="btn-floating waves-effect waves-light btn orange tooltipped" data-tooltip="Modificar Cliente N° <?php echo $lista['idCliente'] ?>"><i class="material-icons right">sync</i>
+                        </button>
+                    </form>
+                </td>
             </tr>
         <?php
         };
@@ -44,3 +52,8 @@
 <script src="js/jquery-3.5.1.min.js"></script>
 
 <?php include 'footer.php'; ?>
+<script>
+    $(document).ready(function() {
+        $('.tooltipped').tooltip();
+    });
+</script>

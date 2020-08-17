@@ -56,7 +56,7 @@
                     <li><a class="dropdown-trigger" href="#!" data-target="ddInvoices">Invoices<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="ddCliente">Cliente<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="ddEmisor">Emisor<i class="material-icons right">arrow_drop_down</i></a></li>
-                    <li><a href="estadisticas.php">Estadisticas<i class="material-icons right">pie_chart</i></a></li>
+                    <li><a href="estadisticas.php">Estadisticas<i class="material-icons right">data_usage</i></a></li>
                 </ul>
             </div>
 
